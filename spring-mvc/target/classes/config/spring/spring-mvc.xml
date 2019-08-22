@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/websocket
+    http://www.springframework.org/schema/websocket/spring-websocket.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+<!-- 	<context:component-scan base-package="kr.co.mlec" /> -->
+	<context:component-scan base-package="moim" />
+    <mvc:annotation-driven>
+    	<mvc:message-converters>
+    		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+    			<property name="supportedMediaTypes">
+    				<list>
+    					<value>text/html; charset=utf-8</value>
+    					<value>application/json; charset=utf-8</value>
+    				</list>
+    			</property>
+    		</bean>
+    		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    			<property name="supportedMediaTypes">
+    				<list>
+    					<value>text/html; charset=utf-8</value>
+    					<value>application/json; charset=utf-8</value>
+    				</list>
+    			</property>
+    		</bean>
+    	</mvc:message-converters>
+    </mvc:annotation-driven>
+	<mvc:default-servlet-handler />
+	
+	<bean id="inviteEchoHandler" class="moim.util.websocket.InviteEchoHandler"/>
+	<websocket:handlers>
+		<websocket:mapping handler="inviteEchoHandler" path="/inviteEcho"></websocket:mapping>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+	<bean id="echoHandler" class="moim.util.websocket.EchoHandler"/>
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>
+		</websocket:handshake-interceptors>
+		<websocket:sockjs></websocket:sockjs>
+	</websocket:handlers>
+
+	<bean id="moneyRequestHandler" class="moim.util.websocket.MoneyRequestHandler"/>
+	<websocket:handlers>
+		<websocket:mapping handler="moneyRequestHandler" path="/moneyRequestEcho"></websocket:mapping>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+	
+	<!-- 	mybatis와 db 설정 -->
+<!-- 	mybatis -->
+<!-- 	spring-jdbc -->
+<!-- 	mybatis-spring -->
+<!-- 	ojdbc8 or ojdbc6 필요 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="system"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/config/mybatis/sqlMapConfig.xml"></property>
+		<property name="mapperLocations" value="classpath:/config/sqlmap/oracle/*.xml"></property>
+	</bean>
+	
+<!-- 	sqlsessionTemplate는 자동으로 커밋을 지원해줌 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	
+	
+	<!-- 	파일 업로드 -->
+	<bean id="multipartResolver" 
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="maxUploadSize" value="10485760"></property>
+    </bean>
+	
+<!-- 	트랜잭션 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<mvc:view-resolvers>
+<!-- 		공통적으로 들어가는 부분을 여기서 설정 -->
+
+		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+	</mvc:view-resolvers>
+</beans>

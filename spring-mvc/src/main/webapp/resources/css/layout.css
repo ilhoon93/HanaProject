@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+@font-face{
+    font-family: "HanaB";
+    src:url("../font/HanaB.ttf");
+}
+
+body{
+	margin: 0;
+}
+/* 헤더 */
+header{
+	width:100%;
+	max-height: 55px;
+	height:55x;
+	padding-top:1%;
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-bottom:1%;
+	background: white;
+	position: fixed;
+	z-index: 1;
+	display: inline-block;
+	box-shadow: 0 1px 6px 0 rgba(32,33,36,0.28);
+}
+
+header a{
+	font-family: "HanaB";
+	font-size: 25px;
+	color:black;
+/* 	color: white; */
+}
+
+#topBarLogo{
+	font-size: 30px;
+}
+.topBarButton{
+	margin-left: 10%;
+	border: none;
+}
+
+.topBarButton:hover{
+    border-bottom: 2px black solid;
+    padding-bottom: 8px;
+}
+
+header a:link, a:visited{
+	text-decoration: none;
+}
+
+
+/* 푸터 */
+@font-face{
+    font-family: "HanaL";
+    src:url("../font/HanaL.ttf");
+}
+footer{
+	background: white;
+	padding-top:20px;
+	padding-bottom:20px;
+	padding-left: 10%;
+	padding-right: 10%;
+	color: #HHHHHH;
+	font-family: "HanaL";
+/* 	position: fixed; */
+/* 	bottom: 0; */
+}
+
+footer hr{
+/* 	width:1px; */
+	border:thin solid lightgray;
+}
+
+section{
+	position:relative;
+	top:70px;
+	padding-left: 15%;
+	padding-right: 15%;
+	min-height: 100vh;
+	display: block;
+}
+
+/* 모달 */
+.modalLayer{
+	display:none; 
+	position:relative;
+
+}
+.modalContent{
+	width:440px; height:400px; padding:20px; 
+	border:1px solid #ccc; position:fixed; left:35%; 
+	top:20%; z-index:11; background:#fff;
+	overflow: scroll;
+	overflow-x:hidden;
+}
+
+.modalContent button{
+	position:absolute; right:0; 
+	top:0; cursor:pointer;
+}

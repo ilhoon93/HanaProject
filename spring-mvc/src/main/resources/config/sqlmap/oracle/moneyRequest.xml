@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="moim.moneyrequest.dao.MoneyRequestDAO">
+
+	<insert id="insertMoneyRequest" parameterType="moneyRequestVO">
+<!-- 		<selectKey keyProperty="id" resultType="int" order="BEFORE"> -->
+<!-- 			select s_request_no.nextval FROM dual -->
+<!-- 		</selectKey> -->
+	
+<!-- 		INSERT INTO t_money_request (r_no, r_title, r_account_no, r_amount, r_date, t_status) -->
+<!-- 			VALUES (s_request_no.nextval, #{trcTitle}, #{trcAccountNo}, #{trcAmount}, #{trcDate}, #{trcStatus}) -->
+			
+			
+		INSERT INTO t_money_request (r_no, r_title, r_account_no, r_amount, r_date, t_status)
+			VALUES (s_request_no.nextval, '${trcTitle}', '${trcAccountNo}', '${trcAmount}', '${trcDate}', '${trcStatus}')
+	</insert>
+	
+	
+
+	<select id="selectNewRequest" resultType="moneyRequestVO">
+		select t.r_account_no as trcAccountNo,
+		 	   t.r_amount as trcAmount,
+		 	   t.r_date as trcDate,
+		 	   t.r_title as trcTitle ,
+		 	   t.r_no as trcNo,
+		 	   t.t_status as trcStatus
+		from (
+				select * 
+				  from t_money_request 
+				  order by r_no desc
+			 ) t
+		 where rownum = 1
+	</select>
+	
+	
+	<insert id="insertMoneyRequestList" parameterType="java.util.Map">
+		INSERT INTO t_money_request_list (r_user_no, r_no, r_status)
+			VALUES ('${userNo}', '${trcNo}', 'R')
+<!-- 			VALUES (#{userNo}, #{trcNo}) -->
+<!-- 			VALUES ('${userNo}', '${trcNo}') -->
+	</insert>
+	
+	
+	<select id="selectMrListByUser" parameterType="int" resultType="moneyRequestVONoList">
+		SELECT r_no as trcNo, r_title as trcTitle, r_account_no as trcAccountNo,
+				r_amount as trcAmount, r_date as trcDate
+		FROM t_money_request
+		WHERE r_no IN (SELECT r_no FROM t_money_request_list WHERE r_user_no = #{userNo} AND r_status='R')
+
+	</select>
+	
+<!-- 	돈빼기 -->
+	<update id="addMoney" parameterType="java.util.Map">
+<!-- 		UPDATE t_account SET account_total_amount = #{money} -->
+<!-- 			WHERE account_no = #{receiveAccount} -->
+		UPDATE t_account SET account_total_amount = '${money}'
+			WHERE account_no = '${receiveAccount}'
+	</update>
+
+	<update id="subtractMoney" parameterType="java.util.Map">
+<!-- 		UPDATE t_account SET account_total_amount =#{money} -->
+<!-- 			WHERE account_no = #{sendAccount} -->
+		UPDATE t_account SET account_total_amount = '${money}'
+			WHERE account_no = '${sendAccount}'
+			
+	</update>
+	
+	
+	<update id="updateMrList" parameterType="java.util.Map">
+		UPDATE t_money_request_list SET r_status = 'C'
+			WHERE r_user_no = '${userNo}' AND r_no = '${trcNo}'
+	</update>
+	
+
+</mapper>

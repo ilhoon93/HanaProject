@@ -1,0 +1,184 @@
+@charset "UTF-8";
+@font-face{
+    font-family: "HanaM";
+    src:url("../font/HanaM.ttf");
+}
+header{
+	top:0;
+}
+section{
+    margin: 0;
+    text-align: center;
+    padding-left: 11%;
+    padding-right:11%;
+    min-height: 100vh;
+    display: block;
+	margin-bottom: 70px;
+	font-family: "HanaM";
+}
+
+aside{
+	width:18%;
+	height: 805px;
+	float:left;
+	background: rgb(50, 50,50);
+    font-size: 20px;
+}
+
+#profileButton{
+    text-decoration: none;
+    font-family: "HanaM";
+    height: 100px;
+}
+
+#groupInfo{
+	padding-top:50px;
+	padding-bottom:30px;
+	color: white;
+	border:1px solid gray;
+/* 	background: #464964; */
+	background: #0e7f5d;
+/* 	background: gray; */
+/* 	background: #f5f5dc; */
+/* 	background: gray; */
+/* 	border:2px solid #008080; */
+/* 	border-top:5px solid #008080; */
+}
+#ownerProfileImage{
+	display: inline-block;
+    /* float: left; */
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    position: relative;
+    /* left:5%; */
+    
+/*     z-index: 1; */
+}
+.myPageButton{
+    display: inline-block;
+    text-decoration: none;
+    color:white;
+    padding-top:20px;
+    padding-bottom: 20px;
+    width:100%;
+}
+.myPageButton:hover{
+    background: #06A47D;
+}
+
+
+article{
+	width:82%;
+	height:805px;
+	float: right;
+	background: lightgray;
+}
+
+#trcHistory{
+	overflow: scroll;
+	overflow-x:hidden;
+	height:660px;
+	border-radius: 2%;
+/* 	border-top: 5px solid cornflowerblue; */
+}
+
+#trcHeader{
+/* 	background-color: rgba( 255, 255, 255, 0.1 ); */
+	font-family:"HanaM";
+/*  	background:#464964; */
+	background:#008080;
+	color: white;
+	border-top: 2px solid cornflowerblue;
+	border-bottom: 2px solid cornflowerblue;
+	
+	padding: 10px;
+	text-align: left;
+	
+}
+@font-face{
+    font-family: "HanaL";
+    src:url("../font/HanaL.ttf");
+}
+#accountNo{
+	font-family: "HanaL";
+	margin-left: 30px;
+}
+
+#trcHistory > div{
+	border-top:10px radius lightgray;
+	text-align:left;
+	padding:10px;
+	width:46%;
+	min-height:630px;
+	display: inline-block;
+	border-radius: 1%;
+	margin-top: 10px;
+}
+
+
+#depositDiv{
+	padding-right:5px solid black;
+	background:white;
+	float:left;
+	min-height:630px;
+	margin-left: 15px;
+}
+#withdrawlDiv{
+	background:#edf2f9;
+	float: right;
+	min-height:630px;
+	margin-right: 15px;
+}
+
+#withdrawlDiv > a{
+	text-decoration: none;
+}
+#withdrawlDiv > a:visited {
+	text-decoration: none;
+}
+
+.fileUploadDiv{
+	border: 1px solid gray;
+	display: none; 
+	position:fixed; 
+	z-index:500;
+	background: white;
+	min-height:300px;
+/* 	margin-left: ; */
+/* 	margin-top: 50%; */
+}
+.uploadFileBtn:hover{
+	cursor: pointer;
+}
+#withDrawTitle:hover{
+	cursor: pointer;
+}
+
+#moneyRequestMsgLayer{
+	display:none;
+	background: cornflowerblue;
+	text-align: center;
+	color:white;
+	width:450px;
+/* 	min-height:200px; */
+	position: fixed;
+	top:100px;
+	z-index: 20;
+	padding: 10px;
+	border: 1px solid gray;
+}
+
+.trcListTable{
+	
+}
+.trcListTable > tr > th{
+	border:1px solid gray; 
+	padding-top:5px;
+	padding-bottom:5px;
+	margin: 0px;
+	
+}
+.trcListTable > tbody > tr{
+	border-bottom:1px solid gray;
+}

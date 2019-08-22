@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="moim.account.dao.AccountDAO">
+	<select id="selectByUser" parameterType="int" resultType="accountVO">
+		SELECT 
+				account_owner_no as accountOwnerNo,
+				account_no as accountNo,
+				account_total_amount as accountTotalAmount,
+				account_type as accountType
+		FROM t_account
+		WHERE account_owner_no = #{userNo}
+	</select>
+	
+	
+	<select id="selectMoimByUser" parameterType="int" resultType="accountVO">
+		SELECT 
+				account_owner_no as accountOwnerNo,
+				account_no as accountNo,
+				account_total_amount as accountTotalAmount,
+				account_type as accountType
+		FROM t_account 
+		WHERE account_no IN (SELECT moim_no FROM t_moim_user WHERE member_no = #{userNo})
+	</select>
+<!-- 	<select id="selectMoimByUser" parameterType="int" resultType="accoutVO"> -->
+<!-- 		SELECT  -->
+<!-- 				account_owner_no as accountOwnerNo, -->
+<!-- 				account_no as accountNo, -->
+<!-- 				account_total_amount as accountTotalAmount -->
+<!-- 		FROM t_account  -->
+
+<!-- 		WHERE account_no IN (SELECT moim_no FROM t_moim_user WHERE member_no = #{userNo}) -->
+<!-- 	</select> -->
+	
+	<select id="selectByNo" parameterType="int" resultType="AccountVO">
+		SELECT 	account_owner_no as accountOwnerNo,
+				account_no as accountNo,
+				account_total_amount as accountTotalAmount,
+				account_type as accountType,
+				account_rate as	accountRate
+				FROM t_account
+			WHERE account_no = #{accountNo}
+	</select>
+	
+	
+	<select id="selectMoimUserByNo" parameterType="int" resultType="UserVO">
+		SELECT user_no as userNo, user_name as userName,
+				user_email as userEmail, user_phone_number as userPhoneNumber FROM t_user 
+		WHERE user_no IN (SELECT member_no FROM t_moim_user WHERE moim_no =	#{accountNo})
+	</select>
+	
+	<select id="selectMyAccountOne" parameterType="int" resultType="int">
+		select t.account_no
+		from (
+				select * 
+				  from t_account
+                  WHERE account_type = '0'
+				  order by account_no desc
+			 ) t
+		 where rownum = 1 AND account_owner_no = #{userNo}
+	</select>
+	
+	<insert id="insertMoimUser" parameterType="moimUserVO">
+		INSERT INTO t_moim_user(moim_no, member_no, member_account)
+			VALUES (#{accountNo}, #{newUserNo}, #{newUserAccountNo})
+	</insert>
+	
+	<select id="selectLinkedAccount" parameterType="java.util.Map" resultType="int">
+		SELECT member_account
+			FROM t_moim_user
+		WHERE member_no = #{userNo} and moim_no = #{moimAccount}
+	</select>
+	
+	<insert id="insertMoneyRequestList" parameterType="java.util.Map">
+		INSERT INTO t_money_request_list (r_user_no, r_no)
+			VALUES ('${userNo}', '${trcNo}')
+<!-- 			VALUES (#{userNo}, #{trcNo}) -->
+<!-- 			VALUES ('${userNo}', '${trcNo}') -->
+	</insert>
+	
+
+</mapper>

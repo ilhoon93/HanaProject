@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="moim.transaction.dao.TransactionDAO">
+
+	<insert id="insertTransaction" parameterType="transactionVO">
+		INSERT INTO t_trc_history
+			(trc_no, trc_amount, trc_send_account, trc_receive_account, trc_status, trc_sender_name, trc_title)
+			VALUES
+			(s_transaction_no.nextval, '${trcAmount}', '${trcSendAccount}', 
+			'${trcReceiveAccount}', 'C', '${trcSenderName}','${trcTitle}')
+	</insert>
+
+	<select id="selectTransactionList" parameterType="int" resultType="transactionVO">
+		SELECT trc_no as trcNo, 
+				SUBSTR(trc_date,0,10) as trcDate, 
+				trc_amount as trcAmount, 
+				trc_send_account as trcSendAccount, 
+				trc_receive_account as trcReceiveAccount, 
+				trc_status as trcStatus,
+				trc_sender_name as trcSenderName,
+				trc_title as trcTitle,
+				trc_receipt_server as trcServerFile,
+				trc_receipt_origin as trcOriginFile
+		FROM t_trc_history
+	    WHERE trc_receive_account = #{accountNo} OR trc_send_account = #{accountNo}
+	</select>
+	
+	<update id="updateTrcFile" parameterType="java.util.Map">
+			UPDATE t_trc_history 
+				SET trc_receipt_server = '${serverFilename}',
+					trc_receipt_origin = '${originFilename}'
+				WHERE trc_no = '${trcNo}' 
+	</update>
+</mapper>

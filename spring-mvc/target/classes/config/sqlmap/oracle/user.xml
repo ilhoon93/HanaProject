@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  
+<mapper namespace="moim.user.dao.UserDAO">
+	<select id="selectByNo" parameterType="int" resultType="userVO">
+		SELECT user_no as userNo, user_name as userName, user_email as userEmail, 
+				user_img_server_file as userImgServerFile
+			FROM t_user
+			WHERE user_no = #{userNo}
+	</select>
+
+	<select id="login" parameterType="userVO" resultType="userVO">
+		SELECT user_email as userEmail, user_password as userPassword, user_name as userName, user_no as userNo
+		
+		from t_user
+			WHERE user_email = #{userEmail} and user_password = #{userPassword}
+	</select>
+	
+	
+	<select id="selectFriendsByNo" parameterType="int" resultType="int">
+		SELECT decode(my_no,${userNo},friends_no) || decode(friends_no,${userNo},my_no) as friendsNo 
+		FROM (SELECT * FROM t_friends 
+		WHERE my_no = ${userNo} OR friends_no = ${userNo})
+	</select>
+
+	
+	<select id="selectFriendsNames" parameterType="list" resultType="userVO">
+		SELECT user_no as userNo, user_name as userName,
+				user_img_server_file as userImgServerFile,
+				user_phone_number as userPhoneNumber
+		from t_user
+			WHERE user_no in 
+<!-- 			(2,3,4) -->
+			<foreach collection="list" item="userNo" separator="," open="(" close=")">
+				#{userNo}
+			</foreach>
+	</select>
+
+	<update id="updateUserPayStatus" parameterType="list">
+		UPDATE t_user SET user_pay_status = 'R'
+		WHERE user_no in
+		<foreach collection="list" item="userNo" separator="," open="(" close=")">
+			'${userNo}'
+		</foreach>
+	</update>
+	
+</mapper>

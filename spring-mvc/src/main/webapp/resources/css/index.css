@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+section{
+	position:relative;
+	top:0px;
+	padding:0;
+}
+
+@font-face{
+    font-family: "HanaM";
+    src:url('../font/HanaM.ttf');
+/*     font-family: "HanaL"; */
+/*     src:url('../font/HanaL.ttf'); */
+}
+
+
+
+#overLay{
+    /* background: black; */
+    background-color: rgba(35,40,40,0.8);
+    position: absolute;
+    width: 100%;
+    height: 800px;
+}
+#imgContainer{
+    position: relative;
+    margin: none;
+    background-image: url('../images/main3.jpg');
+    background-size: cover;
+    overflow-x: hidden;
+    /* z-index: 1000; */
+    width: 100%;
+    height:800px;
+}
+#mainImg{
+    width:100%;
+    overflow: hidden;
+}
+
+#mainText{
+    font-size: 50px;
+}
+#mainTextDiv{
+    font-family: "HanaL";
+    color: white;
+    position: absolute;
+    top:35%;
+    left:15%;
+    font-weight: bold;
+}
+
+#loginForm{
+    padding-left:30px;
+    padding-top:20px;
+    position: absolute;
+    top: 20%;
+    left:130%;
+    background: white;
+    width :350px;
+    height: 250px;
+    border-radius: 10px;
+    /* text-align: center; */
+}
+
+.inputLogin{
+    border:1px solid gray;
+    border-radius: 5px;
+    padding-left: 5px;
+    width:300px;
+    height: 50px;
+    margin-bottom: 10px;
+    /* margin: 10px; */
+}
+
+#loginButton{
+    border-radius: 30px;
+    border:none;
+    background-color: mediumseagreen;
+    width:100px;
+    height: 40px;
+    color: white;
+    font-family: "HanaM";
+}
+
+#loginButton:hover{
+    cursor: pointer;
+    background: green;
+}
