@@ -1,8 +1,9 @@
 # HanaProject
 
-#하나금융티아이 & 한국폴리텍대학교 개인 프로젝트
+### 하나금융티아이 & 한국폴리텍대학교 개인 프로젝트
 
-project   name          : Hana 1Q Moim(가제)<br><br><br><br>
+project   name          : Hana 1Q Moim(가제)
+
 project   desc          : 손쉬운 회비 관리, 모임원들 간 실시간 통신이 가능한 모임계좌 플랫폼
 
 project period          : 2019-08-12 ~ 2019-08-23 (11일)
@@ -12,6 +13,7 @@ project member          : 강일훈 1명
 development environment : JAVA, SPRING FRAMEWORK, MYBATIS, ORACLE DBMS, JQUEARY, HTML/CSS, JSTL
 
 key features            : 
+
   1 친구 초대 기능
   
     - 웹소켓 통신으로 접속해 있는 친구에게 실시간 초대 메시지 전송 가능
