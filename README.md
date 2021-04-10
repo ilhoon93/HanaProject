@@ -14,16 +14,12 @@
 
   
 
-### 시스템 구조
+## 시스템 구조
 - **시스템 구조도**
 
   <img src="https://github.com/ilhoon93/imageHub/blob/master/img/systemArchitecture.JPG?raw=true" width="800px"/>
 
 
-
-- **DB구조**
-
-  <img src="https://github.com/ilhoon93/imageHub/blob/master/img/%ED%85%8C%EC%9D%B4%EB%B8%94%EC%A0%95%EB%B3%B4.JPG?raw=true" width="800px"/>
 
 - **ERD**
 
@@ -32,7 +28,7 @@
 
 
 
-### 주요 기능
+## 주요 기능
 
 1. 친구 초대 기능
 
@@ -70,7 +66,7 @@
 
 
 
-### 보완할 점
+## 보완할 점
 
 수정 사항
 
